@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using MyCars.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using MyCars.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

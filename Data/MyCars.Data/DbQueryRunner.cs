@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using MyCars.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using MyCars.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

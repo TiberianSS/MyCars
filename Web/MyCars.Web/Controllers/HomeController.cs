@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using MyCars.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using MyCars.Web.ViewModels;
 
     public class HomeController : BaseController
     {

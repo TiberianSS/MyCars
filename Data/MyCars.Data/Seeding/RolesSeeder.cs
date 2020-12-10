@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using MyCars.Common;
-    using MyCars.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using MyCars.Common;
+    using MyCars.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {
