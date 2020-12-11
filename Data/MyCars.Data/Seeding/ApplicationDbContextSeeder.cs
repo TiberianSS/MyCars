@@ -27,6 +27,10 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new BrandsSeeder(),
+                              new BodyTypesSeeder(),
+                              new FuelsSeeder(),
+                              new TransmissionsSeeder(),
                           };
 
             foreach (var seeder in seeders)
