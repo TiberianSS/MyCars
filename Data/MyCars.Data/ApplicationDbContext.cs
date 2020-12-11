@@ -25,6 +25,22 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<AdCar> AdCars { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
+
+        public DbSet<BodyType> BodyTypes { get; set; }
+
+        public DbSet<Fuel> Fuels { get; set; }
+
+        public DbSet<Transmission> Transmissions { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+
+        public DbSet<AdCarFeature> AdCarFeatures { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
