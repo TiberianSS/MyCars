@@ -5,27 +5,24 @@
 
     using Microsoft.AspNetCore.Mvc;
     using MyCars.Data;
+    using MyCars.Data.Common.Repositories;
+    using MyCars.Data.Models;
+    using MyCars.Services.Data;
     using MyCars.Web.ViewModels;
     using MyCars.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IGetCountService countService;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(IGetCountService countService)
         {
-            this.db = db;
+            this.countService = countService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel
-            {
-                AdCarsCount = this.db.AdCars.Count(),
-                BrandsCount = this.db.Brands.Count(),
-                FeaturesCount = this.db.Features.Count(),
-                ImagesCount = this.db.Images.Count(),
-            };
+            var viewModel = this.countService.GetCounts();
 
             return this.View(viewModel);
         }

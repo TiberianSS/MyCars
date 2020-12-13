@@ -1,0 +1,102 @@
+﻿@model MyCars.Web.ViewModels.AdCars.CreateAdCarInputModel
+@{
+    this.ViewData["Title"] = "Add new AdCar";
+    var brandItems = this.Model.BrandsItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var bodyTypeItems = this.Model.BodyTypeItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var fuelItems = this.Model.FuelItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var transmissionItems = this.Model.TransmissionItems.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<form method="post" class="col-md-6 offset-md-3"
+      enctype="multipart/form-data">
+
+    <h1>@this.ViewData["Title"]</h1>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="BrandId"></label>
+        <select asp-for="BrandId" class="form-control" asp-items="brandItems"></select>
+        <span asp-validation-for="BrandId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="YearOfManufacture"></label>
+        <input asp-for="YearOfManufacture" class="form-control" />
+        <span asp-validation-for="YearOfManufacture" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BodyTypeId"></label>
+        <select asp-for="BodyTypeId" class="form-control" asp-items="bodyTypeItems"></select>
+        <span asp-validation-for="BodyTypeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FuelId"></label>
+        <select asp-for="FuelId" class="form-control" asp-items="fuelItems"></select>
+        <span asp-validation-for="FuelId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TransmissionId"></label>
+        <select asp-for="TransmissionId" class="form-control" asp-items="transmissionItems"></select>
+        <span asp-validation-for="TransmissionId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Power"></label>
+        <input asp-for="Power" class="form-control" />
+        <span asp-validation-for="Power" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TraveledKm"></label>
+        <input asp-for="TraveledKm" class="form-control" />
+        <span asp-validation-for="TraveledKm" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GsmNumber"></label>
+        <input asp-for="GsmNumber" class="form-control" />
+        <span asp-validation-for="GsmNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group" id="FeaturesContainer">
+        <label asp-for="Features"></label>
+        <a class="btn btn-success" onclick="AddMoreFeatures()">+</a>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>
+
+@section Scripts {
+    <script>
+        var featuresIndex = 0;
+        function AddMoreFeatures() {
+            $("#FeaturesContainer").
+                append("<div class='form-group row'><div class='col-md-12'>Name: <input type='text' class='form-control' name='Features[" + featuresIndex + "].FeatureName' /></div></div>");
+            featuresIndex++;
+        }
+    </script>
+}

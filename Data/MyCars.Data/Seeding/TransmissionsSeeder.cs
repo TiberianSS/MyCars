@@ -17,7 +17,7 @@
                 return;
             }
 
-            await dbContext.Transmissions.AddAsync(new Transmission { Name = "Ручни" });
+            await dbContext.Transmissions.AddAsync(new Transmission { Name = "Ръчни" });
             await dbContext.Transmissions.AddAsync(new Transmission { Name = "Автоматични" });
 
             await dbContext.SaveChangesAsync();
