@@ -23,7 +23,7 @@
             this.featuresRepository = featuresRepository;
         }
 
-        public async Task CreateAsync(CreateAdCarInputModel input)
+        public async Task CreateAsync(CreateAdCarInputModel input, string userId)
         {
             var adcar = new AdCar
             {
@@ -41,6 +41,7 @@
                 GsmNumber = input.GsmNumber,
                 Email = input.Email,
                 Location = input.Location,
+                AddedByUserId = userId,
             };
 
             foreach (var inputFeature in input.Features)

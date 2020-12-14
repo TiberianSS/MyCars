@@ -3,9 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MyCars.Data.Models;
     using MyCars.Services.Data;
     using MyCars.Web.ViewModels.AdCars;
 
@@ -16,21 +20,25 @@
         private readonly IFuelsService fuelsService;
         private readonly ITransmissionsService transmissionsService;
         private readonly IAdCarsService adcarsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public AdCarsController(
             IBrandsService brandsService,
             IBodyTypesService bodyTypesService,
             IFuelsService fuelsService,
             ITransmissionsService transmissionsService,
-            IAdCarsService adcarsService)
+            IAdCarsService adcarsService,
+            UserManager<ApplicationUser> userManager)
         {
             this.brandsService = brandsService;
             this.bodyTypesService = bodyTypesService;
             this.fuelsService = fuelsService;
             this.transmissionsService = transmissionsService;
             this.adcarsService = adcarsService;
+            this.userManager = userManager;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             var viewModel = new CreateAdCarInputModel();
@@ -43,6 +51,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateAdCarInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -55,9 +64,17 @@
                 return this.View(input);
             }
 
-            await this.adcarsService.CreateAsync(input);
+            // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.adcarsService.CreateAsync(input, user.Id);
 
             return this.Redirect("/");
+        }
+
+        public IActionResult All(int id)
+        {
+            return this.View();
         }
     }
 }

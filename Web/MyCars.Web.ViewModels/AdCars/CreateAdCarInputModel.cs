@@ -62,8 +62,7 @@
 
         public IEnumerable<AdCarFeatureInputModel> Features { get; set; }
 
-        //public virtual ICollection<Image> Images { get; set; }
-
+        // public virtual ICollection<Image> Images { get; set; }
         public IEnumerable<KeyValuePair<string, string>> BrandsItems { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> BodyTypeItems { get; set; }

@@ -9,6 +9,6 @@
 
     public interface IAdCarsService
     {
-        Task CreateAsync(CreateAdCarInputModel input);
+        Task CreateAsync(CreateAdCarInputModel input, string userId);
     }
 }
