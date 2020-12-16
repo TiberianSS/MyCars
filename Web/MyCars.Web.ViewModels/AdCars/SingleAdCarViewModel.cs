@@ -49,7 +49,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<AdCar, AdCarInLIstViewModel>()
+            configuration.CreateMap<AdCar, SingleAdCarViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x => x.Images.FirstOrDefault().RemoteImageUrl != null ?
                         x.Images.FirstOrDefault().RemoteImageUrl :

@@ -3,10 +3,10 @@
     this.ViewData["Title"] = Model.BrandName + " " + Model.Model;
 }
 
-<link rel="stylesheet" href="//www.mobile.bg/styless/styless.css?1327" type="text/css">
 <meta name="keywords" content="авто, автомобили, продажба, обяви, авто обяви, автокъщи, автокъща, коли, джипове, бусове, ванове, камиони, мотоциклети, селскотопански машини, строителни машини, каравани">
 
 <body>
+    <link rel="stylesheet" href="//www.mobile.bg/styless/styless.css?1327" type="text/css">
     <table width=980 cellpadding=0 cellspacing=0 border=0 style="margin-top:10px;">
         <tr>
             <td width=680 valign="top">
@@ -17,11 +17,11 @@
                                 <div style="font-size: 18px; font-weight: bold; padding-bottom: 2px; color: #333;">
                                     <h1 style="margin: 0; font-size:18px;">@this.ViewData["Title"]</h1>
                                 </div>
-                                <label>Created On: 10.12.2020</label>
+                                <label>Created On: @Model.CreatedOn</label>
                             </td>
                             <td align="left" valign="top" style="position: relative">
                                 <div style="font-size:16px; margin: 14px 10px 0 0; float:right">
-                                    <strong style="color: #09f;">10 000 лв.</strong>
+                                    <strong style="color: #09f;">@Model.Price лв.</strong>
                                 </div>
                             </td>
                         </tr>
@@ -32,15 +32,20 @@
                     <tr>
                         <td class="img VIP">
                             <div class="imgHolder">
-                                <img src="//mobistatic2.focus.bg/mobile/photosmob/745/1/big/11608033509843745_3x.jpg" class="big" id="bigPictureCarousel" style="cursor:pointer">
+                                <img src="@Model.ImageUrl" class="big">
                             </div>
                         </td>
                         <td class="space"></td>
                         <td class="agencia" style="position: relative">
                             <div class="boxDilar" style="margin-bottom: 20px;">
                                 <div class="AG">
-                                    <strong style='font-size:16px'>Частно лице</strong><br /><br /><div class="adress" style="padding-left:0px;width:144px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom:5px;">Пловдив, гр. Пловдив</div>
-                                    <div class="phone" style='font-size:13px'>GSM: 0888809268</div>
+                                    <div class="adress" style='font-size:13px'>Обявата е качена от:</div>
+                                    <strong style='font-size:16px'>@Model.AddedByUserUserName</strong><br /><br />
+                                    <div class="phone" style='font-size:13px'>За контакти:</div>
+                                    <hr />
+                                    <div class="adress" style="font-size: 15px; padding-left:0px; width: 144px; white-space: nowrap;">Локация: @Model.Location</div>
+                                    <div class="phone" style='font-size:13px'>GSM: @Model.GsmNumber</div>
+                                    <div class="phone" style='font-size:10px'>Еmail: @Model.Email</div>
                                 </div>
                             </div>
                         </td>
@@ -48,49 +53,41 @@
                 </table>
 
                 <div style="width:300px; display:inline-block; float:left; margin-top:15px; overflow: hidden;">
-                    <strong style="font-size:18px;color:#333;">@this.ViewData["Title"]</strong><br />                    
+                    <strong style="font-size:18px;color:#333;">@this.ViewData["Title"]</strong><br />
                     <ul class="dilarData">
                         <li>Дата на производство</li>
-                        <li>юли 2017г.</li>
+                        <li>@Model.YearOfManufacture</li>
                         <li>Тип двигател</li>
-                        <li>Дизелов</li>
+                        <li>@Model.FuelName</li>
                         <li>Мощност</li>
-                        <li>90 к.с.</li>
+                        <li>@Model.Power к.с.</li>
                         <li>Скоростна кутия</li>
-                        <li>Ръчна</li>
+                        <li>@Model.TransmissionName</li>
                         <li>Купе</li>
-                        <li>Пикап</li>
+                        <li>@Model.BodyTypeName</li>
                         <li>Пробег</li>
-                        <li>53000 км</li>
+                        <li>@Model.TraveledKm км</li>
                         <li>Цвят</li>
-                        <li>Бял</li>
-                    </ul>                    
+                        <li>@Model.Color</li>
+                    </ul>
                 </div>
                 <table width=660 cellspacing=0 cellpadding=0 border=0>
                     <tr>
                         <td valign=top>
                             <label class="extra_cat">Особености и Екстри</label><br />
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
-                            <div style="margin-bottom:5px;">• Въздушни възглавници - Предни</div>
+                            @foreach (var feature in Model.Features)
+                            {
+                                <div style="margin-bottom:5px;">• @feature.FeatureName</div>
+                            }                            
                         </td>
                     </tr>
                 </table>
                 <div style="width:660px; font-size:14px; font-weight:bold; padding-bottom:10px; margin-bottom:10px; margin-top:10px;">Допълнителна информация:</div>
                 <table width=660 cellspacing=0 cellpadding=0 border=0>
-                    <tr><td style="line-height:24px; font-size:14px; color: #444;">Цената е без ДДС! Колата е с действащ лизинг и във фабрична гаранция. Закупена като нова, първи собственик. Цена за влизане в лизинга - 5000. 00лв без ДДС и оставащи 20 вноски по 297. 00 лв. </td></tr>
+                    <tr><td style="line-height:24px; font-size:14px; color: #444;">@Model.Description</td></tr>
                 </table>
             </td>
-            </tr>        
+        </tr>
     </table>
 </body>
 
