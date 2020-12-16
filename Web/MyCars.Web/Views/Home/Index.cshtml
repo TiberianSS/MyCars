@@ -4,9 +4,24 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="text-center row">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-8">
+        <div class="row">
+            @foreach (var adcar in this.Model.RandomAdCars)
+            {
+                <div class="card col-md-6">
+                    <img class="card-img-top" src="@adcar.ImageUrl" alt="@adcar.BrandName">
+                    <div class="card-body">
+                        <h5 class="card-title">@adcar.BrandName @adcar.Model</h5>
+                        <p class="card-text">@adcar.YearOfManufacture, @adcar.BodyTypeName, @adcar.FuelName</p>
+                        <a asp-controller="AdCars" asp-action="ById" asp-route-id="@adcar.Id" class="btn btn-primary">Go to ad car</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
         <p>We have:</p>
         <ul class="list-group">
             <li class="list-group-item bg-info">AdCars: @Model.AdCarsCount</li>

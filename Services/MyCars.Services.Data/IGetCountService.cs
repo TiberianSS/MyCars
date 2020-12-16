@@ -4,10 +4,11 @@
     using System.Collections.Generic;
     using System.Text;
 
+    using MyCars.Services.Data.Models;
     using MyCars.Web.ViewModels.Home;
 
     public interface IGetCountService
     {
-        IndexViewModel GetCounts();
+        CountsDto GetCounts();
     }
 }

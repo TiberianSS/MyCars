@@ -1,13 +1,11 @@
-﻿namespace MyCars.Web.ViewModels.Home
+﻿namespace MyCars.Services.Data.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    public class IndexViewModel
+    public class CountsDto
     {
-        public IEnumerable<IndexPageAdCarViewModel> RandomAdCars { get; set; }
-
         public int AdCarsCount { get; set; }
 
         public int BrandsCount { get; set; }

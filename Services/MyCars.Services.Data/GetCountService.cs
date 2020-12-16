@@ -7,6 +7,7 @@
 
     using MyCars.Data.Common.Repositories;
     using MyCars.Data.Models;
+    using MyCars.Services.Data.Models;
     using MyCars.Web.ViewModels.Home;
 
     public class GetCountService : IGetCountService
@@ -28,9 +29,9 @@
             this.imagesRepository = imagesRepository;
         }
 
-        public IndexViewModel GetCounts()
+        public CountsDto GetCounts()
         {
-            var data = new IndexViewModel
+            var data = new CountsDto
             {
                 AdCarsCount = this.adcarsRepository.All().Count(),
                 BrandsCount = this.brandsRepository.All().Count(),
@@ -40,5 +41,18 @@
 
             return data;
         }
+
+        // public IndexViewModel GetCounts()
+        // {
+        //     var data = new IndexViewModel
+        //     {
+        //         AdCarsCount = this.adcarsRepository.All().Count(),
+        //         BrandsCount = this.brandsRepository.All().Count(),
+        //         FeaturesCount = this.featuresRepository.All().Count(),
+        //         ImagesCount = this.imagesRepository.All().Count(),
+        //     };
+        // 
+        //     return data;
+        // }
     }
 }
