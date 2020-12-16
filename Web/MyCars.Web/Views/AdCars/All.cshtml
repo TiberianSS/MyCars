@@ -1,7 +1,7 @@
-﻿@{
-    this.ViewData["Title"] = "All AdCar";
+﻿@model MyCars.Web.ViewModels.AdCars.AdCarsListViewModel
+@{
+    this.ViewData["Title"] = "All AdCar, page " + Model.PageNumber;
 }
-
 
 <link href="~/css/Car.css" rel="stylesheet" />
 <lik href="~/css/Car1.css" rel="stylesheet" />
@@ -10,40 +10,41 @@
 
 <div id="listContainer" class="row">
 
-    @for (int i = 0; i < 12; i++)
+    @foreach(var adCar in this.Model.AdCars)
     {
         <div class="col-md-3">
             <div class="mdc-card__primary-action" tabindex="0">
                 <div class="card__primary no-padding">
                     <h6 class="card__subtitle mdc-typography mdc-typography--overline">
-                        днес, 14:45, нов внос                    <span class="add-book-area">
+                        @*днес, 14:45, нов внос*@                    <span class="add-book-area">
                             <i class="material-icons favorite_border" style="float: right; margin-top: 0.25rem"></i>
                         </span>
                     </h6>
                 </div>
-                <a href="https://www.cars.bg/offer/5fbfc734fe99b33abd014554" list-link="https://www.cars.bg/offer/5fbfc734fe99b33abd014554" style="height: 100%" class="d-grid no-decoration">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url(&quot;https://g1-bg.cars.bg/2020-11-26_2/5fbfc596148d5a2f6c1e0dc6b.jpg&quot;);">
+                <a asp-action="ById" asp-route-id="@adCar.Id" style="height: 100%" class="d-grid no-decoration">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="        background-image: url(&quot; @adCar.ImageUrl &quot;);">
                         <div class="card__primary">
-                            <h6 class="card__title mdc-typography mdc-typography--headline6 price">
-                                6,590 лв.
+                            <h6 class="card__title mdc-typography mdc-typography--headline6 price text-light">
+                                @adCar.Price лв.
                             </h6>
                         </div>
                     </div>
                     <div class="card__primary">
                         <h5 class="card__title mdc-typography mdc-typography--headline5 observable">
-                            Subaru OUTBACK 2.5 4x4
+                            @adCar.BrandName @adCar.Model
                         </h5>
-                    </div>
+                    </div>                    
                     <div class="mdc-divider"></div>
                     <div class="card__secondary mdc-typography mdc-typography--body1 black">
-                        2004, Бензин, 202196 км.
+                        @adCar.YearOfManufacture, @adCar.FuelName, @adCar.TraveledKm км.
                     </div>
                     <div class="card__secondary mdc-typography mdc-typography--body2">
-                        Нов внос Германия климатроник кожен салон с подгрве ел стъкла ел огледала с...
+                        @*@adCar.Description*@
                     </div>
                 </a>
+                <hr />
                 <div class="card__footer mdc-typography mdc-typography--body2 align-bottom">
-                    частно лице, Варна
+                    @adCar.Location
                 </div>
             </div>
         </div>
@@ -51,4 +52,4 @@
 </div>
 
 <hr />
-@*<partial name="_PagingPartial" model="@Model" />*@
+<partial name="_PagingPartial" model="@Model" />

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MyCars.Data.Models;
@@ -21,6 +22,7 @@
         private readonly ITransmissionsService transmissionsService;
         private readonly IAdCarsService adcarsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
         public AdCarsController(
             IBrandsService brandsService,
@@ -28,7 +30,8 @@
             IFuelsService fuelsService,
             ITransmissionsService transmissionsService,
             IAdCarsService adcarsService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment)
         {
             this.brandsService = brandsService;
             this.bodyTypesService = bodyTypesService;
@@ -36,6 +39,7 @@
             this.transmissionsService = transmissionsService;
             this.adcarsService = adcarsService;
             this.userManager = userManager;
+            this.environment = environment;
         }
 
         [Authorize]
@@ -66,15 +70,48 @@
 
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await this.userManager.GetUserAsync(this.User);
+            try
+            {
+                await this.adcarsService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                input.BrandsItems = this.brandsService.GetAllAsKeyValuePairs();
+                input.BodyTypeItems = this.bodyTypesService.GetAllAsKeyValuePairs();
+                input.FuelItems = this.fuelsService.GetAllAsKeyValuePairs();
+                input.TransmissionItems = this.transmissionsService.GetAllAsKeyValuePairs();
 
-            await this.adcarsService.CreateAsync(input, user.Id);
+                return this.View(input);
+            }
 
             return this.Redirect("/");
         }
 
-        public IActionResult All(int id)
+        public IActionResult All(int id = 1)
         {
-            return this.View();
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 12;
+
+            var vieModel = new AdCarsListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                AdCarsCount = this.adcarsService.GetCount(),
+                AdCars = this.adcarsService.GetAll<AdCarInLIstViewModel>(id, ItemsPerPage),
+            };
+            return this.View(vieModel);
+        }
+
+        public IActionResult ById(int id)
+        {
+            var adcar = this.adcarsService.GetById<SingleAdCarViewModel>(id);
+
+            return this.View(adcar);
         }
     }
 }

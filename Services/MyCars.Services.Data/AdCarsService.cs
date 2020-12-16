@@ -2,16 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
     using MyCars.Data.Common.Repositories;
     using MyCars.Data.Models;
+    using MyCars.Services.Mapping;
     using MyCars.Web.ViewModels.AdCars;
 
     public class AdCarsService : IAdCarsService
     {
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<AdCar> adcarsRepository;
         private readonly IDeletableEntityRepository<Feature> featuresRepository;
 
@@ -23,7 +26,7 @@
             this.featuresRepository = featuresRepository;
         }
 
-        public async Task CreateAsync(CreateAdCarInputModel input, string userId)
+        public async Task CreateAsync(CreateAdCarInputModel input, string userId, string imagePath)
         {
             var adcar = new AdCar
             {
@@ -59,8 +62,56 @@
                 });
             }
 
+            Directory.CreateDirectory($"{imagePath}/adcars/");
+
+            foreach (var image in input.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+
+                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    AddedByUserId = userId,
+                    Extension = extension,
+                };
+
+                adcar.Images.Add(dbImage);
+
+                var physicalPath = $"{imagePath}/adcars/{dbImage.Id}.{extension}";
+                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
+            }
+
             await this.adcarsRepository.AddAsync(adcar);
             await this.adcarsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        {
+            var adcars = this.adcarsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>()
+                .ToList();
+
+            return adcars;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var adcar = this.adcarsRepository.AllAsNoTracking().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return adcar;
+        }
+
+        public int GetCount()
+        {
+            return this.adcarsRepository.All().Count();
         }
     }
 }

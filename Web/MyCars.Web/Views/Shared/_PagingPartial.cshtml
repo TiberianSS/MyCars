@@ -1,4 +1,4 @@
-﻿@*@model PagingViewModel
+﻿@model MyCars.Web.ViewModels.PagingViewModel
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
         <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
@@ -28,4 +28,4 @@
             <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
         </li>
     </ul>
-</nav>*@
+</nav>

@@ -83,6 +83,11 @@
         <input asp-for="Location" class="form-control" />
         <span asp-validation-for="Location" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
     <div class="form-group" id="FeaturesContainer">
         <label asp-for="Features"></label>
         <a class="btn btn-success" onclick="AddMoreFeatures()">+</a>

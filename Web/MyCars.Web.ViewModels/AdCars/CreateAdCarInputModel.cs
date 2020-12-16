@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
+    using Microsoft.AspNetCore.Http;
     using MyCars.Data.Models;
 
     public class CreateAdCarInputModel
@@ -60,9 +61,10 @@
         [MinLength(3)]
         public string Location { get; set; }
 
+        public IEnumerable<IFormFile> Images { get; set; }
+
         public IEnumerable<AdCarFeatureInputModel> Features { get; set; }
 
-        // public virtual ICollection<Image> Images { get; set; }
         public IEnumerable<KeyValuePair<string, string>> BrandsItems { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> BodyTypeItems { get; set; }
