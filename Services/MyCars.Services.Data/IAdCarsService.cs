@@ -22,5 +22,7 @@
         Task UpdateAsync(int id, EditAdCarInputModel input);
 
         IEnumerable<T> GetByFeatures<T>(IEnumerable<int> featureIds);
+
+        Task DeleteAsync(int id);
     }
 }

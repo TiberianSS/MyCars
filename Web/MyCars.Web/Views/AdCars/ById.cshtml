@@ -11,6 +11,10 @@
     <li class="single-meta">
         <a asp-controller="AdCars" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
     </li>
+    <li class="single-meta">
+        <form asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id"></form>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    </li>
 }
 <body>
     <link rel="stylesheet" href="//www.mobile.bg/styless/styless.css?1327" type="text/css">
@@ -99,3 +103,23 @@
 </body>
 
 <hr />
+
+<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete "@Model.BrandName @Model.Model"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" onclick="deleteForm.submit()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

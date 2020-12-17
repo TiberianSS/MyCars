@@ -90,6 +90,13 @@
             await this.adcarsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var adcar = this.adcarsRepository.All().FirstOrDefault(x => x.Id == id);
+            this.adcarsRepository.Delete(adcar);
+            await this.adcarsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
         {
             var adcars = this.adcarsRepository.AllAsNoTracking()

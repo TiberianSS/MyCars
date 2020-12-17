@@ -8,6 +8,13 @@
 <lik href="~/css/Car1.css" rel="stylesheet" />
 
 <h1>@ViewData["Title"]</h1>
+
+@if (!Model.AdCars.Any())
+{
+    <p>Nothing found...</p>
+}
+else
+{
 <div id="listContainer" class="row">
 
     @foreach (var adCar in this.Model.AdCars)
@@ -50,5 +57,6 @@
         </div>
     }
 </div>
+}
 
 <hr />
