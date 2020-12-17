@@ -20,5 +20,7 @@
         T GetById<T>(int id);
 
         Task UpdateAsync(int id, EditAdCarInputModel input);
+
+        IEnumerable<T> GetByFeatures<T>(IEnumerable<int> featureIds);
     }
 }

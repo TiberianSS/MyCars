@@ -51,7 +51,7 @@
         //         FeaturesCount = this.featuresRepository.All().Count(),
         //         ImagesCount = this.imagesRepository.All().Count(),
         //     };
-        // 
+        //
         //     return data;
         // }
     }

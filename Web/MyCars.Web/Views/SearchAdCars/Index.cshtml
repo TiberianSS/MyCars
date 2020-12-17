@@ -1,0 +1,24 @@
+﻿@model MyCars.Web.ViewModels.SearchAdCars.SearchIndexViewModel
+@{ 
+    ViewData["Title"] = "Search cars by Feature";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="List" method="get">
+    <div class="row">
+        <div class="col-md-6">
+            @foreach (var feature in Model.Features)
+            {
+            <div>
+                <input id="feature_@feature.Id"
+                       type="checkbox"
+                       name="Features"
+                       value="@feature.Id" />
+                <label for="feature_@feature.Id">@feature.Name</label>
+            </div>
+            }
+        </div>
+    </div>
+        <button class="btn btn-primary">Search</button>
+</form>

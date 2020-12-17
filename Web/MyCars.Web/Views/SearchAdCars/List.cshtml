@@ -1,0 +1,54 @@
+﻿@model MyCars.Web.ViewModels.SearchAdCars.ListViewMoel
+
+@{
+    ViewData["Title"] = "Search result";
+}
+
+<link href="~/css/Car.css" rel="stylesheet" />
+<lik href="~/css/Car1.css" rel="stylesheet" />
+
+<h1>@ViewData["Title"]</h1>
+<div id="listContainer" class="row">
+
+    @foreach (var adCar in this.Model.AdCars)
+    {
+        <div class="col-md-3">
+            <div class="mdc-card__primary-action" tabindex="0">
+                <div class="card__primary no-padding">
+                    <h6 class="card__subtitle mdc-typography mdc-typography--overline">
+                        @*днес, 14:45, нов внос*@                    <span class="add-book-area">
+                            <i class="material-icons favorite_border" style="float: right; margin-top: 0.25rem"></i>
+                        </span>
+                    </h6>
+                </div>
+                <a asp-controller="AdCars" asp-action="ById" asp-route-id="@adCar.Id" style="height: 100%" class="d-grid no-decoration">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="        background-image: url(&quot; @adCar.ImageUrl &quot;);">
+                        <div class="card__primary">
+                            <h6 class="card__title mdc-typography mdc-typography--headline6 price text-light">
+                                @adCar.Price лв.
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card__primary">
+                        <h5 class="card__title mdc-typography mdc-typography--headline5 observable">
+                            @adCar.BrandName @adCar.Model
+                        </h5>
+                    </div>
+                    <div class="mdc-divider"></div>
+                    <div class="card__secondary mdc-typography mdc-typography--body1 black">
+                        @adCar.YearOfManufacture, @adCar.FuelName, @adCar.TraveledKm км.
+                    </div>
+                    <div class="card__secondary mdc-typography mdc-typography--body2">
+                        @*@adCar.Description*@
+                    </div>
+                </a>
+                <hr />
+                <div class="card__footer mdc-typography mdc-typography--body2 align-bottom">
+                    @adCar.Location
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />

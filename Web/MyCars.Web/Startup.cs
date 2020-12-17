@@ -70,6 +70,7 @@
             services.AddTransient<IFuelsService, FuelsService>();
             services.AddTransient<ITransmissionsService, TransmissionsService>();
             services.AddTransient<IAdCarsService, AdCarsService>();
+            services.AddTransient<IFeaturesService, FeaturesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

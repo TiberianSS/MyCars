@@ -101,6 +101,18 @@
             return adcars;
         }
 
+        public IEnumerable<T> GetByFeatures<T>(IEnumerable<int> featureIds)
+        {
+            var query = this.adcarsRepository.All().AsQueryable();
+
+            foreach (var featureId in featureIds)
+            {
+                query = query.Where(x => x.Features.Any(i => i.FeatureId == featureId));
+            }
+
+            return query.To<T>().ToList();
+        }
+
         public T GetById<T>(int id)
         {
             var adcar = this.adcarsRepository.AllAsNoTracking().Where(x => x.Id == id)
