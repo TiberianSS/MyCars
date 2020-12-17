@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MyCars.Common;
     using MyCars.Data.Models;
     using MyCars.Services.Data;
     using MyCars.Web.ViewModels.AdCars;
@@ -40,6 +41,37 @@
             this.adcarsService = adcarsService;
             this.userManager = userManager;
             this.environment = environment;
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Edit(int id)
+        {
+            var inputModel = this.adcarsService.GetById<EditAdCarInputModel>(id);
+            inputModel.BrandsItems = this.brandsService.GetAllAsKeyValuePairs();
+            inputModel.BodyTypeItems = this.bodyTypesService.GetAllAsKeyValuePairs();
+            inputModel.FuelItems = this.fuelsService.GetAllAsKeyValuePairs();
+            inputModel.TransmissionItems = this.transmissionsService.GetAllAsKeyValuePairs();
+
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Edit(int id, EditAdCarInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                input.BrandsItems = this.brandsService.GetAllAsKeyValuePairs();
+                input.BodyTypeItems = this.bodyTypesService.GetAllAsKeyValuePairs();
+                input.FuelItems = this.fuelsService.GetAllAsKeyValuePairs();
+                input.TransmissionItems = this.transmissionsService.GetAllAsKeyValuePairs();
+
+                return this.View(input);
+            }
+
+            await this.adcarsService.UpdateAsync(id, input);
+
+            return this.RedirectToAction(nameof(this.ById), new { id });
         }
 
         [Authorize]

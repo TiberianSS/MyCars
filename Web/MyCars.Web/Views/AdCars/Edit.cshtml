@@ -1,0 +1,107 @@
+﻿@model MyCars.Web.ViewModels.AdCars.EditAdCarInputModel
+@{
+    ViewData["Title"] = "Edit AdCar";
+    var brandItems = this.Model.BrandsItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var bodyTypeItems = this.Model.BodyTypeItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var fuelItems = this.Model.FuelItems.Select(x => new SelectListItem(x.Value, x.Key));
+    var transmissionItems = this.Model.TransmissionItems.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" id="editForm">
+    <div class="form-group">
+        <label asp-for="BrandId"></label>
+        <select asp-for="BrandId" class="form-control" asp-items="brandItems"></select>
+        <span asp-validation-for="BrandId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="YearOfManufacture"></label>
+        <input asp-for="YearOfManufacture" class="form-control" />
+        <span asp-validation-for="YearOfManufacture" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BodyTypeId"></label>
+        <select asp-for="BodyTypeId" class="form-control" asp-items="bodyTypeItems"></select>
+        <span asp-validation-for="BodyTypeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FuelId"></label>
+        <select asp-for="FuelId" class="form-control" asp-items="fuelItems"></select>
+        <span asp-validation-for="FuelId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TransmissionId"></label>
+        <select asp-for="TransmissionId" class="form-control" asp-items="transmissionItems"></select>
+        <span asp-validation-for="TransmissionId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Power"></label>
+        <input asp-for="Power" class="form-control" />
+        <span asp-validation-for="Power" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TraveledKm"></label>
+        <input asp-for="TraveledKm" class="form-control" />
+        <span asp-validation-for="TraveledKm" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GsmNumber"></label>
+        <input asp-for="GsmNumber" class="form-control" />
+        <span asp-validation-for="GsmNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <hr />
+    <input type="hidden" asp-for="Id" />
+</form>
+<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalEdit">Save changes</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you confirm this changes?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editForm.submit()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

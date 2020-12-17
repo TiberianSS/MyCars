@@ -11,6 +11,8 @@
 
     public class SingleAdCarViewModel : IMapFrom<AdCar>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string BrandName { get; set; }
 
         public string Model { get; set; }

@@ -121,5 +121,24 @@
                 .Take(count)
                 .To<T>().ToList();
         }
+
+        public async Task UpdateAsync(int id, EditAdCarInputModel input)
+        {
+            var adcars = this.adcarsRepository.All().FirstOrDefault(x => x.Id == id);
+            adcars.BrandId = input.BrandId;
+            adcars.Model = input.Model;
+            adcars.YearOfManufacture = input.YearOfManufacture;
+            adcars.BodyTypeId = input.BodyTypeId;
+            adcars.FuelId = input.FuelId;
+            adcars.TransmissionId = input.TransmissionId;
+            adcars.Power = input.Power;
+            adcars.TraveledKm = input.TraveledKm;
+            adcars.Description = input.Description;
+            adcars.GsmNumber = input.GsmNumber;
+            adcars.Email = input.Email;
+            adcars.Location = input.Location;
+
+            await this.adcarsRepository.SaveChangesAsync();
+        }
     }
 }
